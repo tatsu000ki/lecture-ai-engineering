@@ -14,6 +14,12 @@ def display_chat_page(pipe):
     user_question = st.text_area("質問", key="question_input", height=100, value=st.session_state.get("current_question", ""))
     submit_button = st.button("質問を送信")
 
+    # 生成パラメータの入力UI（サイドバーまたはメイン画面に配置）
+    st.sidebar.header("生成パラメータ設定")
+    max_new_tokens = st.sidebar.slider("最大トークン数", min_value=100, max_value=1024, value=512, step=50)
+    temperature    = st.sidebar.slider("Temperature", min_value=0.1, max_value=1.0, value=0.7, step=0.1)
+    top_p          = st.sidebar.slider("Top p", min_value=0.1, max_value=1.0, value=0.9, step=0.1)
+
     # セッション状態の初期化（安全のため）
     if "current_question" not in st.session_state:
         st.session_state.current_question = ""
